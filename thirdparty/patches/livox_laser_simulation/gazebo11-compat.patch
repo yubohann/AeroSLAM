@@ -1,0 +1,45 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index d031e37..88fc843 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8.3)
+ project(livox_laser_simulation)
+ 
+ ## Compile as C++11, supported in ROS Kinetic and newer
+-add_compile_options(-std=c++11)
++add_compile_options(-std=c++17)
+ 
+ find_package(catkin REQUIRED COMPONENTS
+   roscpp
+@@ -13,7 +13,6 @@ find_package(gazebo REQUIRED)
+ include_directories(${GAZEBO_INCLUDE_DIRS})
+ 
+ #To solve the error which gazebo does not handle the include file well, we must add this line.
+-include_directories(/usr/include/gazebo-7/gazebo)
+ 
+ link_directories(${GAZEBO_LIBRARY_DIRS})
+ 
+diff --git a/include/livox_laser_simulation/livox_ode_multiray_shape.h b/include/livox_laser_simulation/livox_ode_multiray_shape.h
+index d0f498d..c5aa50c 100644
+--- a/include/livox_laser_simulation/livox_ode_multiray_shape.h
++++ b/include/livox_laser_simulation/livox_ode_multiray_shape.h
+@@ -7,7 +7,6 @@
+ #include <gazebo/physics/MultiRayShape.hh>
+ #include <gazebo/util/system.hh>
+ #include <gazebo/ode/common.h>
+-#include <ignition/math4/ignition/math.hh>
+ 
+ namespace gazebo{
+ namespace physics{
+diff --git a/src/livox_ode_multiray_shape.cpp b/src/livox_ode_multiray_shape.cpp
+index 4459183..8ae0388 100644
+--- a/src/livox_ode_multiray_shape.cpp
++++ b/src/livox_ode_multiray_shape.cpp
+@@ -12,7 +12,6 @@
+ #include <gazebo/physics/ode/ODERayShape.hh>
+ #include <gazebo/physics/ode/ODEMultiRayShape.hh>
+ #include "livox_laser_simulation/livox_ode_multiray_shape.h"
+-#include <ignition/math4/ignition/math.hh>
+ 
+ using namespace gazebo;
+ using namespace physics;

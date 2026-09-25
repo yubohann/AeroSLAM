@@ -1,0 +1,31 @@
+# AeroSLAM frontier manifest (vcstool).
+# Fetch with:  vcs import src/frontier < thirdparty/aeroslam.repos
+#
+# These are upstream research systems used (or planned) by AeroSLAM.
+# They are NOT vendored into the repository on purpose: several carry
+# GPL-2.0/GPL-3.0 licenses and/or fast-moving upstream code. See NOTICE.md.
+repositories:
+  FAST_LIO:
+    type: git
+    url: https://github.com/hku-mars/FAST_LIO.git
+    version: main
+  livox_ros_driver:
+    type: git
+    url: https://github.com/Livox-SDK/livox_ros_driver.git
+    version: master
+  livox_laser_simulation:
+    type: git
+    url: https://github.com/Livox-SDK/livox_laser_simulation.git
+    version: main
+  ego-planner:
+    type: git
+    url: https://github.com/ZJU-FAST-Lab/ego-planner.git
+    version: master
+  FUEL:
+    type: git
+    url: https://github.com/HKUST-Aerial-Robotics/FUEL.git
+    version: main
+  octomap_mapping:
+    type: git
+    url: https://github.com/octomap/octomap_mapping.git
+    version: master

@@ -1,0 +1,45 @@
+<package format="2">
+  <name>hector_quadrotor_controllers</name>
+  <version>0.0.0</version>
+  <description>hector_quadrotor_controllers provides controller plugins for quadrotor control using <a href="http://wiki.ros.org/ros_control">ros_control</a>.</description>
+  <maintainer email="meyer@fsr.tu-darmstadt.de">Johannes Meyer</maintainer>
+
+  <license>BSD</license>
+
+  <url type="website">http://ros.org/wiki/hector_quadrotor_controller</url>
+  <url type="bugtracker">https://github.com/tu-darmstadt-ros-pkg/hector_quadrotor/issues</url>
+
+  <author email="meyer@fsr.tu-darmstadt.de">Johannes Meyer</author>
+  <author email="pbovbel@clearpathrobotics.com">Paul Bovbel</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend version_gte="1.14.0">control_toolbox</build_depend>
+  <build_depend>controller_interface</build_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>hardware_interface</build_depend>
+  <build_depend>hector_quadrotor_interface</build_depend>
+  <build_depend>hector_uav_msgs</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>tf</build_depend>
+  <build_depend>tf2_geometry_msgs</build_depend>
+  <build_depend>topic_tools</build_depend>
+  <build_depend>visualization_msgs</build_depend>
+
+  <exec_depend version_gte="1.14.0">control_toolbox</exec_depend>
+  <exec_depend>controller_interface</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>hardware_interface</exec_depend>
+  <exec_depend>hector_quadrotor_interface</exec_depend>
+  <exec_depend>hector_uav_msgs</exec_depend>
+  <exec_depend>roscpp</exec_depend>
+  <exec_depend>tf</exec_depend>
+  <exec_depend>tf2_geometry_msgs</exec_depend>
+  <exec_depend>topic_tools</exec_depend>
+  <exec_depend>visualization_msgs</exec_depend>
+
+  <export>
+    <controller_interface plugin="${prefix}/plugin.xml"/>
+  </export>
+
+</package>
