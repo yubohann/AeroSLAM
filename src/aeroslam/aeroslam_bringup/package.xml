@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>aeroslam_bringup</name>
+  <version>0.1.0</version>
+  <description>Launch files, URDF and configuration for AeroSLAM scenarios:
+  quadrotor + simulated Livox LiDAR + FAST-LIO LiDAR-inertial odometry.</description>
+
+  <maintainer email="aeroslam@users.noreply.github.com">AeroSLAM</maintainer>
+  <license>GPL-3.0-or-later</license>
+
+  <url type="website">https://github.com/yubohann/AeroSLAM</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <exec_depend>rospy</exec_depend>
+  <exec_depend>xacro</exec_depend>
+  <exec_depend>hector_quadrotor_description</exec_depend>
+  <exec_depend>hector_quadrotor_gazebo</exec_depend>
+  <exec_depend>hector_quadrotor_controllers</exec_depend>
+  <exec_depend>hector_quadrotor_actions</exec_depend>
+  <exec_depend>robot_state_publisher</exec_depend>
+  <exec_depend>message_to_tf</exec_depend>
+  <exec_depend>gazebo_ros</exec_depend>
+  <exec_depend>topic_tools</exec_depend>
+  <exec_depend>rviz</exec_depend>
+
+  <!-- Optional frontier dependencies (fetch them first in frontier mode via
+       scripts/setup.sh):
+       - fast_lio                 (LiDAR-inertial odometry)
+       - livox_laser_simulation   (Gazebo Livox sensor)
+       - livox_ros_driver         (CustomMsg definitions)
+  -->
+
+  <export/>
+</package>

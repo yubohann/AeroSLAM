@@ -1,0 +1,59 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, master, develop ]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build-noetic:
+    name: Build & test (ROS Noetic)
+    runs-on: ubuntu-20.04
+    env:
+      ROS_DISTRO: noetic
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup ROS
+        uses: ros-tooling/setup-ros@v0.7
+        with:
+          required-ros-distributions: noetic
+
+      - name: Install system & ROS dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            build-essential cmake \
+            libeigen3-dev libboost-all-dev libyaml-cpp-dev libgoogle-glog-dev \
+            ros-noetic-navigation ros-noetic-cmake-modules ros-noetic-joy \
+            ros-noetic-osqp ros-noetic-osqp-vendor
+          rosdep update
+          rosdep install --from-paths src --ignore-src -r -y
+
+      - name: Build workspace
+        shell: bash
+        run: |
+          source /opt/ros/noetic/setup.bash
+          catkin_make -DCMAKE_BUILD_TYPE=Release -j2
+
+      - name: Run tests
+        shell: bash
+        run: |
+          source /opt/ros/noetic/setup.bash
+          catkin_make -DCATKIN_ENABLE_TESTING=ON
+          catkin_make run_tests -j2 || true
+          catkin_test_results build/test_results --verbose
+
+  python-lint:
+    name: Python lint
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.8'
+      - run: pip install pyflakes
+      - run: |
+          find src -name '*.py' -not -path '*/frontier/*' | xargs -r pyflakes

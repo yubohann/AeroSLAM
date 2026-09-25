@@ -1,0 +1,17 @@
+services:
+  aeroslam:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    image: aeroslam:noetic
+    container_name: aeroslam
+    environment:
+      - DISPLAY=${DISPLAY:-:0}
+      - QT_X11_NO_MITSHM=1
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - ..:/root/aeroslam
+    network_mode: host
+    stdin_open: true
+    tty: true
+    command: bash

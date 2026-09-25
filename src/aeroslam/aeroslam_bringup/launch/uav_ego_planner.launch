@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+
+<!--
+  Experimental: EGO-Planner on the hector quadrotor with simulated Livox +
+  FAST-LIO odometry.
+
+  Chain: FAST-LIO (/Odometry, /cloud_registered) -> EGO-Planner ->
+         /planning/pos_cmd -> position_command_bridge -> command/pose -> hector.
+
+  Goal: publish a 2D Nav Goal (/move_base_simple/goal).
+
+  Requires the frontier modules, including ego-planner (setup.sh in frontier
+  mode), then catkin_make; ego-planner and its uav_simulator packages build too.
+-->
+<launch>
+  <arg name="world" default="$(find hector_gazebo_worlds)/worlds/rolling_landscape_120m.world" />
+  <arg name="gui" default="true" />
+  <arg name="headless" default="false" />
+  <arg name="rviz" default="true" />
+
+  <arg name="map_size_x" default="40.0" />
+  <arg name="map_size_y" default="40.0" />
+  <arg name="map_size_z" default="3.0" />
+  <arg name="max_vel" default="1.5" />
+  <arg name="max_acc" default="2.0" />
+  <arg name="planning_horizon" default="7.5" />
+
+  <!-- sensing + LiDAR-inertial odometry -->
+  <include file="$(find aeroslam_bringup)/launch/uav_livox_fastlio.launch">
+    <arg name="world" value="$(arg world)" />
+    <arg name="gui" value="$(arg gui)" />
+    <arg name="headless" value="$(arg headless)" />
+    <arg name="rviz" value="false" />
+  </include>
+
+  <!-- EGO-Planner core parameters -->
+  <include file="$(find ego_planner)/launch/advanced_param.xml">
+    <arg name="map_size_x_" value="$(arg map_size_x)" />
+    <arg name="map_size_y_" value="$(arg map_size_y)" />
+    <arg name="map_size_z_" value="$(arg map_size_z)" />
+    <arg name="odometry_topic" value="/Odometry" />
+
+    <!-- LiDAR point cloud from FAST-LIO instead of a depth camera -->
+    <arg name="cloud_topic" value="/cloud_registered" />
+    <!-- camera/depth placeholders (unused when cloud_topic is set) -->
+    <arg name="camera_pose_topic" value="/pcl_render_node/camera_pose" />
+    <arg name="depth_topic" value="/pcl_render_node/depth" />
+    <arg name="cx" value="321.04638671875" />
+    <arg name="cy" value="243.44969177246094" />
+    <arg name="fx" value="387.229248046875" />
+    <arg name="fy" value="387.229248046875" />
+
+    <arg name="max_vel" value="$(arg max_vel)" />
+    <arg name="max_acc" value="$(arg max_acc)" />
+    <arg name="planning_horizon" value="$(arg planning_horizon)" />
+    <arg name="flight_type" value="1" />
+    <arg name="point_num" value="5" />
+    <arg name="point0_x" value="0.0" />
+    <arg name="point0_y" value="0.0" />
+    <arg name="point0_z" value="1.5" />
+    <arg name="point1_x" value="8.0" />
+    <arg name="point1_y" value="0.0" />
+    <arg name="point1_z" value="1.5" />
+    <arg name="point2_x" value="8.0" />
+    <arg name="point2_y" value="8.0" />
+    <arg name="point2_z" value="1.5" />
+    <arg name="point3_x" value="0.0" />
+    <arg name="point3_y" value="8.0" />
+    <arg name="point3_z" value="1.5" />
+    <arg name="point4_x" value="0.0" />
+    <arg name="point4_y" value="0.0" />
+    <arg name="point4_z" value="1.5" />
+  </include>
+
+  <!-- trajectory server: B-spline trajectory -> PositionCommand -->
+  <node pkg="ego_planner" name="traj_server" type="traj_server" output="screen">
+    <remap from="/position_cmd" to="/planning/pos_cmd" />
+    <remap from="/odom_world" to="/Odometry" />
+    <param name="traj_server/time_forward" value="1.0" type="double" />
+  </node>
+
+  <!-- goal interface (2D Nav Goal / RViz) -->
+  <node pkg="waypoint_generator" name="waypoint_generator" type="waypoint_generator" output="screen">
+    <remap from="~odom" to="/Odometry" />
+    <remap from="~goal" to="/move_base_simple/goal" />
+    <param name="waypoint_type" value="manual-lonely-waypoint" />
+  </node>
+
+  <!-- PositionCommand -> hector command/pose -->
+  <node pkg="aeroslam_bringup" type="position_command_bridge.py" name="position_command_bridge" output="screen">
+    <param name="input_topic" value="/planning/pos_cmd" />
+    <param name="output_topic" value="command/pose" />
+  </node>
+
+  <node if="$(arg rviz)" pkg="rviz" type="rviz" name="rviz"
+        args="-d $(find fast_lio)/rviz_cfg/loam_livox.rviz" />
+</launch>

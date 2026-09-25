@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>aeroslam_livox_bridge</name>
+  <version>0.1.0</version>
+  <description>Converts the simulated Livox LiDAR point cloud (sensor_msgs/PointCloud)
+  into livox_ros_driver/CustomMsg for FAST-LIO.</description>
+
+  <maintainer email="aeroslam@users.noreply.github.com">AeroSLAM</maintainer>
+  <license>GPL-3.0-or-later</license>
+
+  <url type="website">https://github.com/yubohann/AeroSLAM</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>roscpp</depend>
+  <depend>sensor_msgs</depend>
+
+  <!-- Frontier dependency, fetched in frontier mode via scripts/setup.sh.
+       Declared for build ordering; the node is skipped when it is absent. -->
+  <depend>livox_ros_driver</depend>
+
+  <export/>
+</package>
