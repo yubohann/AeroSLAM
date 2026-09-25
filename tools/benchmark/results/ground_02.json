@@ -1,0 +1,11 @@
+{
+  "world": "test2",
+  "goal": [
+    0.78,
+    3.93
+  ],
+  "success": true,
+  "time_s": 14.0,
+  "path_length_m": 3.68,
+  "final_distance_m": 0.438
+}

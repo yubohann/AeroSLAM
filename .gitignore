@@ -1,0 +1,47 @@
+# ----- catkin build artifacts -----
+/build/
+/devel/
+/logs/
+/install/
+/build_isolated/
+/devel_isolated/
+.catkin_workspace.swp
+
+# ----- IDE / editor -----
+.vscode/*
+!.vscode/settings.json.example
+!.vscode/extensions.json.example
+.idea/
+*.user
+*.swp
+*~
+
+# ----- Python -----
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+.pytest_cache/
+.mypy_cache/
+
+# ----- Runtime outputs -----
+*.bag
+*.pcd
+*.ply
+*.bt
+*.log
+!install/**
+*.csv.tmp
+
+# ----- OS -----
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ----- Local-only -----
+.local/
+*.code-workspace
+
+# ----- Frontier modules (fetched via thirdparty/aeroslam.repos) -----
+/src/frontier/*
+!/src/frontier/README.md

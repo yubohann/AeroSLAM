@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+title: "AeroSLAM: aerial SLAM, exploration and ground navigation on ROS 1 Noetic"
+message: "If you use this software, please cite it as below."
+type: software
+authors:
+  - name: "AeroSLAM contributors"
+repository-code: "https://github.com/yubohann/AeroSLAM"
+url: "https://github.com/yubohann/AeroSLAM"
+license: GPL-3.0-or-later
+version: 0.1.0
+date-released: "2026-09-25"
+keywords:
+  - robotics
+  - ros
+  - slam
+  - autonomous-exploration
+  - uav
+  - lidar-inertial-odometry
+  - navigation

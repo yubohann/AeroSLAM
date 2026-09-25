@@ -1,0 +1,14 @@
+{
+  "odom_samples": 488,
+  "truth_samples": 4954,
+  "odom_rate_hz": 9.95,
+  "odom_path_length_m": 99.32,
+  "truth_path_length_m": 97.47,
+  "position_rmse_m": 0.1253,
+  "final_drift_m": 0.1702,
+  "max_drift_m": 0.2662,
+  "aligned_rmse_m": 0.0576,
+  "heading_offset_deg": 0.0953,
+  "run": 1,
+  "duration_s": 40.0
+}
